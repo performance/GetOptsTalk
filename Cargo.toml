@@ -1,9 +1,12 @@
 [package]
 
-name = "hello_world"
+name = "test_getopts"
 version = "0.0.1"
 authors = [ "Your name <you@example.com>" ]
 
 [[bin]]
 
-name = "hello_world"
+name = "test_getopts"
+
+[dependencies]
+getopts = "0.2"
