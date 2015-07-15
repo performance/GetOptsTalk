@@ -10,3 +10,4 @@ name = "test_getopts"
 
 [dependencies]
 getopts = "0.2"
+rand = "*"
