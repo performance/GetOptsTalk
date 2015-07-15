@@ -7,7 +7,7 @@ use std::env;
 extern crate rand;
 use rand::distributions::{Normal, IndependentSample};
 
-
+#[allow(non_snake_case)]
 pub struct ImageOptions {
     tiffFilename  : String,
     imageWidth    : u16,
@@ -20,30 +20,30 @@ pub struct ImageOptions {
     columnFPN     : f64,
     columnNoise   : f64,
 }
-
+#[allow(non_snake_case)]
 impl ImageOptions {
-     fn new() -> ImageOptions {
-         ImageOptions {
-             tiffFilename  : "".to_string(),
-             imageWidth    : 0u16,
-             imageHeight   : 0u16,
-             startingCode  : 0u16,
-             endingCode    : 0u16,
-             sequenceCount : 0u16,
-             increment     : false,
-             lineNoise     : 0.0f64,
-             columnFPN     : 0.0f64,
-             columnNoise   : 0.0f64,
-         }
-     }
+     // fn new() -> ImageOptions {
+     //     ImageOptions {
+     //         tiffFilename  : "".to_string(),
+     //         imageWidth    : 0u16,
+     //         imageHeight   : 0u16,
+     //         startingCode  : 0u16,
+     //         endingCode    : 0u16,
+     //         sequenceCount : 0u16,
+     //         increment     : false,
+     //         lineNoise     : 0.0f64,
+     //         columnFPN     : 0.0f64,
+     //         columnNoise   : 0.0f64,
+     //     }
+     // }
 
     fn mnew( matches : &getopts::Matches ) -> ImageOptions {
         let args: Vec<String> = env::args().collect();
-        let w_h_good = (
+        let _w_h_good =
                 ( 2  == matches.free.len()       )
             &&  ( args[ 1 ] == matches.free[ 0 ] )
             &&  ( args[ 2 ] == matches.free[ 1 ] )
-        );
+        ;
         ImageOptions {
             tiffFilename  : matches.opt_str( "f" ).unwrap_or( "".to_string() ), // "".to_string(),
             imageWidth    : matches.free[ 0 ].trim().parse::<u16>().ok().unwrap_or(   0u16 ), // 0u16,
@@ -81,7 +81,7 @@ fn print_usage(program: &str, opts: &Options) {
     print!("{}", opts.usage(&brief));
 }
 
-fn cmdline_options( args : &Vec<String> ) -> Option< Matches > {
+fn cmdline_options( _args : &Vec<String> ) -> Option< Matches > {
     let mut opts = Options::new();
     opts.optopt("f", "file", "Tiff file name to use", "SOMENAME.TIF");
     opts.optopt("s", "starting_code", "Starting Code for the image", "STARTIG_CODE");
@@ -97,31 +97,28 @@ fn cmdline_options( args : &Vec<String> ) -> Option< Matches > {
     let program = args[0].clone();
     let matches = match opts.parse(&args[1..]) {
         Ok(m) => { m }
-        Err(f) => { panic!(f.to_string()); print_usage(&program, &opts); }
+        Err(f) => { print_usage(&program, &opts); panic!(f.to_string()); }
     };
 
-    if (
-             matches.opt_present("h")
-        ||   ( 4 > args.len() )
-    )
-    {
+    if  matches.opt_present("h") ||   ( 4 > args.len() ) {
         print_usage(&program, &opts);
         return None;
     }
-    return ( Some ( matches ) );
+    return Some ( matches );
 }
 
-fn CreateADCImage( imageOptions: &ImageOptions, colFPNSamples: Vec<f64> ) -> bool {
+#[allow(non_snake_case)]
+fn CreateADCImage( _imageOptions: &ImageOptions, _colFPNSamples: Vec<f64> ) -> bool {
 
 
     return false;
 }
-
+#[allow(non_snake_case)]
 fn GaussianRandomNum( normal : & Normal ) -> f64 {
     let v = normal.ind_sample(&mut rand::thread_rng());
     return v;
 }
-
+#[allow(non_snake_case)]
 fn CreateSingleImage( imageOptions: &ImageOptions ) -> bool {
     // let mut j = 0u16;
     // double* colFPNSamples = (double*)malloc(sizeof(double) * (imageOptions.imageWidth));
@@ -138,7 +135,7 @@ fn CreateSingleImage( imageOptions: &ImageOptions ) -> bool {
 }
 
 
-
+#[allow(non_snake_case)]
 fn main() {
     let args: Vec<String> = env::args().collect();
     let matches = cmdline_options( &args ).expect( "" );
